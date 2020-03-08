@@ -1,0 +1,48 @@
+= Tasarım Kalıpları Dersi Ödev 1
+
+== Lists
+
+=== Unordered List:
+
+* Mehmet
+* Fırat
+* KÖMÜRCÜ
+
+=== Ordered List:
+
+. Mehmet
+. Fırat
+. KÖMÜRCÜ
+
+== Admonition
+
+[NOTE]
+====
+An admonition block may contain complex content.
+
+.A list
+- one
+- two
+- three
+
+====
+
+[WARNING]
+====
+
+.B list
+- one
+- two
+- three
+
+====
+
+[CAUTION]
+====
+
+.C list
+- one
+- two
+- three
+
+====

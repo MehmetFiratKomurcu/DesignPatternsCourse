@@ -128,3 +128,13 @@ $design patterns
 |Cell in column 1, row 2
 |Cell in column 2, row 2
 |===
+
+== UMLS
+
+Use Case:
+
+image::../uml/use-case.png[]
+
+Class:
+
+image::../uml/class.png[]

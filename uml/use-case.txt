@@ -1,0 +1,6 @@
+@startuml
+MehmetFirat -> (Basla)
+MehmetFirat --> (Use Case Deneme) : küçük bir etiket
+
+:Mehmet Firat: ---> (Use Case Deneme) : uzun bir etiket
+@enduml

@@ -1,0 +1,5 @@
+@startuml
+araba <|-- bmw
+deneme1 *-- deneme2
+deneme3 o-- deneme4
+@enduml

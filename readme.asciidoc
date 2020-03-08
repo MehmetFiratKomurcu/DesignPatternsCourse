@@ -1,4 +1,7 @@
 = Tasarım Kalıpları Dersi Ödev 1
+:icons: font
+:imagesdir: media
+:data-uri:
 
 == Lists
 
@@ -46,3 +49,82 @@ An admonition block may contain complex content.
 - three
 
 ====
+
+== Links
+
+External: https://github.com/asciidoctor[Asciidoctor @ *GitHub*]
+
+With Spaces and Special Characters: link:++https://example.org/?q=[a b]++[URL with special characters]
+
+Relative: link:index.html[Docs]
+
+Link With Attributes: https://discuss.asciidoctor.org[Discuss Asciidoctor^]
+
+Inline Anchors: [[bookmark-a]]Inline anchors make arbitrary content referenceable.
+
+Internal cross references: See <<Lists>> to learn how to write paragraphs.
+
+== Images
+
+Block: 
+
+image::batman.jpg[Batman, 300, 200]
+
+Inline:
+
+Click image:batman.jpg[Batman, 50, 30, title="Batman"] to get party started.
+
+Inline Image With Positioning Role:
+
+image:batman.jpg[Batman, 50, 30, title="Batman", role="right"] What a beautiful hero.
+
+== Videos
+
+
+Block: 
+
+video::music.mp4[]
+
+Embedded Video:
+
+video::rPQoq7ThGAU[youtube]
+
+== C++ Source Code
+
+Code block with title and syntax highlighting:
+
+.app.cpp
+[source,c++]
+----
+require 'library'
+
+get '/hi' do
+  "Hello World!"
+end
+----
+
+Inline:
+
+Reference code like `types` or `methods` inline.
+
+== Bash Script Code
+
+```sh
+#design patterns
+$design patterns
+```
+
+== Table
+
+[%header,cols=2*] 
+.Table Title
+|===
+|Name of Column 1
+|Name of Column 2
+
+|Cell in column 1, row 1
+|Cell in column 2, row 1
+
+|Cell in column 1, row 2
+|Cell in column 2, row 2
+|===

@@ -141,4 +141,4 @@ image::../uml/class.png[]
 
 Week 2 
 
-image::../UML_Class_diagram/uml.png[Week2, 800, 500]
+image::../UML_Class_diagram/uml.png[Week2, 500, 500]

@@ -1,0 +1,35 @@
+@startuml
+class Order {
+  Id
+}
+interface Product
+class Supplier{
+  Name
+}
+class Book{
+  Name
+  Author
+}
+class DVD{
+  Name
+  Manufacturer
+}
+class OrderStatus{
+  buy()
+  cancel()
+}
+class ComicBook{
+  Name
+  Author
+  Artist
+}
+Order"0..*" - "1..*" Product
+Order *-- OrderDetail : composition
+(Order, Product ) .. OrderStatus
+Supplier o-- Product: aggregation
+Book <|-- Product : realization
+DVD <|-- Product : realization
+ComicBook<|-- Book: generalization
+Person ..> Order: Creates(Dependency)
+Order ..|> PaymentService: Uses
+@enduml

@@ -138,3 +138,7 @@ image::../uml/use-case.png[]
 Class:
 
 image::../uml/class.png[]
+
+Week 2 
+
+image::../UML_Class_diagram/uml.png[Week2, 800, 500]

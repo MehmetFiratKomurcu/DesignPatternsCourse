@@ -1,0 +1,13 @@
+@startuml
+title Hero
+
+class Hero
+
+Hero : {static} Lazy: Hero
+Hero : HeroName
+Hero : Attack()
+Hero : Die()
+Hero : {static} HeroInstance(): Hero
+
+Hero ---> Hero
+@enduml

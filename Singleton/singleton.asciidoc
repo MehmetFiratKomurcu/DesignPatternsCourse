@@ -1,0 +1,52 @@
+= Tasarım Kalıpları Dersi Singleton Pattern
+
+== C# Source Code
+
+.Singleton.cs
+[source,c++]
+----
+using System;
+
+namespace Singleton
+{
+    public static class Program
+    {
+        public static void Main(string[] args)
+        {
+            Hero.HeroInstance.Attack();
+            Hero.HeroInstance.Die();
+            Hero.HeroInstance.HeroName = "Firat";
+            Console.WriteLine(Hero.HeroInstance.HeroName);
+        }
+    }
+
+    public sealed class Hero
+    {
+        public string HeroName { get; set; } // <1>
+        private Hero() // <2>
+        {
+            
+        }
+        
+        private static readonly Lazy<Hero> Lazy = new Lazy<Hero>(() => new Hero()); // <3>
+
+        public static Hero HeroInstance => Lazy.Value; // <4>
+
+        public void Attack() // <5>
+        {
+            Console.WriteLine("Hero attacked!");
+        }
+
+        public void Die() // <5>
+        {
+            Console.WriteLine("Hero Died!");
+        }
+    }
+}
+
+<1> Singleton Property
+<2> Private constructor
+<3> Create thread safe singleton instance with Lazy.
+<4> Return singleton instance
+<5> An instance function
+----

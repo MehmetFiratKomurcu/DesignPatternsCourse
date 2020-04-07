@@ -1,0 +1,27 @@
+@startuml
+interface IAnimalFactory{
++IAnimal GetAnimal(string animalType);
+}
+class AnimalFactory{
++IAnimal GetAnimal(string animalType);
+}
+interface IAnimal{
++void Speak();
+}
+class Dog{
++void Speak();
+}
+class Lion{
++void Speak();
+}
+class Cat{
++void Speak();
+}
+IAnimal <|-- Dog
+IAnimal <|-- Lion
+IAnimal <|-- Cat
+IAnimalFactory <|-- AnimalFactory
+AnimalFactory ..|> Dog
+AnimalFactory ..|> Lion
+AnimalFactory ..|> Cat
+@enduml

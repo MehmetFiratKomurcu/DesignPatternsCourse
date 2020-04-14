@@ -1,0 +1,28 @@
+@startuml
+skinparam classAttributeIconSize 0
+left to right direction
+
+abstract class OrderPrototype{
+    +int OrderId
+    +string OrderCode
+    +string OrderStatus
+    +OrderPrototype()
+    {abstract}+OrderProtype Clone()
+}
+
+class OrderForDeep{
+    +OrderForDeep()
+}
+
+class OrderForShallow{
+    +OrderForShallow()
+}
+
+abstract class PrototypeRun{
+    +Main()
+}
+
+PrototypeRun --> OrderPrototype
+OrderForShallow -|> OrderPrototype
+OrderForDeep -|> OrderPrototype
+@enduml

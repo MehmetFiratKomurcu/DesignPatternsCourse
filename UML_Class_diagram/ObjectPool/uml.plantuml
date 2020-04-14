@@ -1,0 +1,29 @@
+@startuml
+skinparam classAttributeIconSize 0
+left to right direction
+
+class OrderPool{
+    {static}-Lazy<OrderPool> instance
+    {static}+string Instance
+    -int defaultSize
+    -ConcurrentBag<Order> _bag
+    -int _currentSize
+    -int _counter
+    -object _lockObject
+
+    -OrderPool()
+    +Order AcquireObject()
+    +ReleaseObject()
+}
+
+abstract class Order{
+    {abstract}+string GatherOrder()
+}
+
+class RequestOrder{
+}
+
+Order-> OrderPool
+RequestOrder -o OrderPool
+RequestOrder -|> Order
+@enduml

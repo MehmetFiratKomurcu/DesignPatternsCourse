@@ -1,0 +1,119 @@
+= Tasarım Kalıpları Dersi Prototype Pattern
+
+== C# Source Code
+
+.Prototype.cs
+[source,c#]
+----
+
+public class OrderPool
+    {
+        private static Lazy<OrderPool> instance
+            = new Lazy<OrderPool>(() => new OrderPool()); // <1>
+        public static OrderPool Instance { get; } = instance.Value;
+
+        private const int defaultSize = 5;
+        private ConcurrentBag<Order> _bag = new ConcurrentBag<Order>();
+        private volatile int _currentSize;
+        private volatile int _counter;
+        private object _lockObject = new object(); // <2>
+
+        private OrderPool()
+            : this(defaultSize)
+        {
+        }
+        private OrderPool(int size)
+        {
+            _currentSize = size;
+        }
+
+        public Order AcquireObject() // <3>
+        {
+            if (!_bag.TryTake(out Order item))
+            {
+                lock (_lockObject)
+                {
+                    if (item == null)
+                    {
+                        if (_counter >= _currentSize)
+                            throw new Exception(); // <4>
+
+                        item = new RequestOrder();
+                        _counter++;
+
+                    }
+                }
+
+            }
+
+            return item;
+        }
+
+        public void ReleaseObject(Order item) // <5>
+        {
+            _bag.Add(item);
+        }
+        public void IncreaseSize()
+        {
+            lock (_lockObject)
+            {
+                _currentSize++;
+            }
+        }
+    }
+
+
+    public abstract class Order
+    {
+        public abstract string GatherOrder();
+    }
+
+    internal class RequestOrder : Order
+    {
+        public override string GatherOrder()
+        {
+            Thread.Sleep(1000); // <6>
+            return "Gathering order with RequestOrder...";
+        }
+    }
+
+public class ObjectPoolRun
+    {
+        public static void Main(string[] args)
+        {
+            int counter = 0;
+            Parallel.For(0, 100, (i, loopState) => // <7>
+            {
+                Order order;
+                Exception e = null;
+                do
+                {
+                    try
+                    {
+                        order = OrderPool.Instance.AcquireObject();
+                        Console.WriteLine("Thread " + Thread.CurrentThread.GetHashCode() + " : " + order.GatherOrder() + " Instance id : " + order.GetHashCode());
+                        OrderPool.Instance.ReleaseObject(order);
+                        e = null;
+                        counter++;
+                    }
+                    catch (Exception ex)
+                    {
+                        Thread.Sleep(1000);
+                        Console.WriteLine("Waiting...");
+                        e = ex;
+                    }
+                } while (e != null);
+            });
+
+            Console.WriteLine("Counter : " + counter);
+        }
+    }
+
+<1> Thread-Safe Singleton Object Pool
+<2> Object For Thread Lock
+<3> Get Object If Available
+<4> Throw Exception So Client Can Wait In Catch Block
+<5> Add Item Back To Pool
+<6> Do Some Work
+<7> Run Parallel Threads For Test
+----

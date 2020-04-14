@@ -9,13 +9,10 @@ interface IAnimal{
 +void Speak();
 }
 class Dog{
-+void Speak();
 }
 class Lion{
-+void Speak();
 }
 class Cat{
-+void Speak();
 }
 IAnimal <|-- Dog
 IAnimal <|-- Lion

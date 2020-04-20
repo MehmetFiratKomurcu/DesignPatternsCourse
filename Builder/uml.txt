@@ -1,0 +1,47 @@
+@startuml
+skinparam classAttributeIconSize 0
+left to right direction
+
+class LaptopDirector{
+    +void Construct()
+}
+
+abstract class LaptopBuilder{
+    #Laptop laptop
+
+    +Laptop Laptop()
+    +void BuildProcessor()
+    +void BuildScreen()
+    +void BuildRam()
+    +void BuildMemory()
+}
+
+class MSIBuilder{
+    +MSIBuilder()
+}
+
+class LenovoBuilder{
+    +LenovoBuilder()
+}
+
+class AsusBuilder{
+    +AsusBuilder()
+}
+
+class Laptop{
+    -string _brand
+    -Dictionary<string, string> _parts
+    +Laptop()
+    +string this[]()
+    +void Show()
+}
+
+
+LaptopDirector "builder" o---> LaptopBuilder
+MSIBuilder --|> LaptopBuilder
+LenovoBuilder --|> LaptopBuilder
+AsusBuilder --|> LaptopBuilder
+MSIBuilder ...> Laptop
+LenovoBuilder ...> Laptop
+AsusBuilder ...> Laptop
+@enduml

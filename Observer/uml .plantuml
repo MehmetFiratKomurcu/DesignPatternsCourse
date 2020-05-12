@@ -1,0 +1,35 @@
+@startuml
+abstract class ISubject{
+    -List<IObserver> _observers
+
+    +ISubject()
+    +void Attach()
+    +void Detach()
+    +void Notify()
+}
+
+class Subject{
+    +Subject()
+}
+
+interface IObserver{
+    +void Update()
+}
+
+class ConcreteObserverA{
+    +ConcreteObserverA()
+    +void Update()
+}
+
+class ConcreteObserverB{
+    +ConcreteObserverB()
+    +void Update()
+}
+
+ISubject -> IObserver
+Subject -|> ISubject
+ConcreteObserverA -> Subject
+ConcreteObserverA -|> IObserver
+ConcreteObserverB --> Subject
+ConcreteObserverB --|> IObserver
+@enduml

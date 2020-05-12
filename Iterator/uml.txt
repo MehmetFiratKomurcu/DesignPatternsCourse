@@ -1,0 +1,39 @@
+@startuml
+class Customer {
++ Id
++ Name
+}
+
+class LocalCustomer {
+}
+
+class InternationalCustomer{
+}
+
+interface IAbstractIterator{
++Customer First()
++Customer Next()
++bool isCompleted
+}
+
+class Iterator {
+}
+
+interface IAbstractCollection{
++Iterator CreateIterator()
+}
+
+class ConcreteCollection{
+-List<Customer> _listCustomers
++void AddCustomer(Customer customer)
++Customer GetCustomer(int indexPosition)
+}
+
+LocalCustomer ..|> Customer
+InternationalCustomer..|> Customer
+Iterator ..|> IAbstractIterator
+ConcreteCollection..|> IAbstractCollection
+ConcreteCollection -o Iterator
+ConcreteCollection --> Customer
+IAbstractCollection --> IAbstractIterator : create
+@enduml

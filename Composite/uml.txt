@@ -1,0 +1,22 @@
+@startuml
+class Client
+interface ISoftwareDeveloper{
++ DescribeYourself(): void;
+}
+class Intern{
+- string _name;
+- long _experience;
+}
+class LeadDeveloper{
+- string _name;
+- long _experience;
+- List<ISoftwareEngineer> _softwareEngineers;
++ AddSoftwareEngineer(ISoftwareEngineer softwareEngineer): void;
++ RemoveSoftwareEngineer(ISoftwareEngineer softwareEngineer): void;
+}
+
+Client .-> ISoftwareDeveloper : Uses
+Intern ..|> ISoftwareDeveloper
+LeadDeveloper ...|> ISoftwareDeveloper
+LeadDeveloper "1" o--- "0..*" ISoftwareDeveloper
+@enduml

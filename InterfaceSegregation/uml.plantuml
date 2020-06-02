@@ -1,0 +1,27 @@
+@startuml
+interface ICalculateDeci
+{
++ CalculateDeci(): double;
+}
+
+interface ICalculateBarcodeNumber
+{
++ CalculateInternationalBarcodeNumber(): double;
+}
+
+class LocalBox {
+- long _height;
+- long _length;
+- long _width;
+}
+
+class InternationalBox{
+- long _height;
+- long _length;
+- long _width;
+- double Coefficient;
+}
+
+LocalBox ..|> ICalculateDeci
+InternationalBox ..|> ICalculateBarcodeNumber
+@enduml

@@ -1,0 +1,24 @@
+@startuml
+class NoteBook{
+- string _note;
++ Write(string note): void;
++ ShowNote(): void;
++ Save(): NoteMemento;
++ Rollback(NoteMemento noteMemento): void;
+}
+
+class NoteMemento
+{
++ string Note
+}
+
+class Caretaker
+{
+- NoteMemento _noteMemento;
++ Caretaker(NoteMemento noteMemento);
++ GetMemento(): NoteMemento
+}
+
+NoteBook ..> NoteMemento
+Caretaker o--> NoteMemento
+@enduml

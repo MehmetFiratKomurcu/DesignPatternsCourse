@@ -1,0 +1,97 @@
+= Tasarım Kalıpları Dersi Memento Pattern
+
+== C# Source Code
+
+.Memento.cs
+[source,c++]
+----
+using System;
+
+namespace Memento
+{
+    public static class Program
+    {
+        public static void Main()
+        {
+            var noteBook = new NoteBook();
+            
+            noteBook.Write("mfk");
+            noteBook.ShowNote();
+
+            var noteMemento = noteBook.Save();
+            var caretaker = new Caretaker(noteMemento);
+            
+            noteBook.Write("ark");
+            noteBook.ShowNote();
+            
+            noteBook.Rollback(caretaker.GetMemento());
+            noteBook.ShowNote();
+        }
+    }
+
+    public class NoteBook
+    {
+        private string _note;
+
+        public void Write(string note) // <1>
+        {
+            _note = note;
+        }
+
+        public void ShowNote()
+        {
+            Console.WriteLine($"Showing note on the notebook: {_note}");
+        }
+
+        public NoteMemento Save() // <2>
+        {
+            Console.WriteLine($"Saving note: {_note}");
+            return new NoteMemento()
+            {
+                Note = _note
+            };
+        }
+
+        public void Rollback(NoteMemento noteMemento) // <3>
+        {
+            Console.WriteLine($"Bringing back note: {noteMemento.Note}");
+            _note = noteMemento.Note;
+        }
+        
+    }
+
+    public class NoteMemento
+    {
+        public string Note { get; set; }
+    }
+
+    public class Caretaker
+    {
+        private readonly NoteMemento _noteMemento;
+
+        public Caretaker(NoteMemento noteMemento) // <4>
+        {
+            _noteMemento = noteMemento;
+        }
+
+        public NoteMemento GetMemento() // <5>
+        {
+            return _noteMemento;
+        }
+    }
+}
+
+<1> Writing note to the notebook(originator)
+<2> Saving note to memento
+<3> Getting back the memento which we just saved
+<4> Giving memento to Caretaker
+<5> Getting Memento from Caretaker
+----
+
+== Console Output
+image::ConsoleOutput.png[ConsoleOutput, 500, 500]
+image::uml.png[UML, 500, 500]
+
+Memento Design Pattern Konsolda da gözüktüğü gibi bir objenin belirli bir state'ini saklayıp
+daha sonradan o state'e geri dönüş yapabilmemizi sağlar. Bu örnekteki kullanma nedenim yazdığım
+eski yazıya ulaşabilmem.

@@ -1,0 +1,109 @@
+= Tasarım Kalıpları Dersi Final Proje Ödevi
+
+== C# Source Code
+
+.Interface-Segregation-True-Version.cs
+[source,c++]
+----
+using System;
+
+namespace InterfaceSegregation
+{
+    public static class Program
+    {
+        public static void Main()
+        {
+            var localBox = new LocalBox(2, 3, 1);
+            var internationalBox = new InternationalBox(2, 3, 1);
+            
+            Console.WriteLine(localBox.CalculateDeci());
+            Console.WriteLine(internationalBox.CalculateInternationalBarcodeNumber());
+        }
+    }
+
+    public interface ICalculateDeci // <1>
+    {
+        double CalculateDeci();
+    }
+    
+    public interface ICalculateBarcodeNumber // <2>
+    {
+        double CalculateInternationalBarcodeNumber();
+    }
+
+    public class LocalBox : ICalculateDeci // <3>
+    {
+        private readonly long _height;
+        private readonly long _length;
+        private readonly long _width;
+
+        public LocalBox(long height, long length, long width)
+        {
+            _height = height;
+            _length = length;
+            _width = width;
+        }
+        
+        public double CalculateDeci()
+        {
+            return _height * _length * _width;
+        }
+    }
+    
+    public class InternationalBox : ICalculateBarcodeNumber // <4>
+    {
+        private readonly long _height;
+        private readonly long _length;
+        private readonly long _width;
+        private const double Coefficient = 0.6;
+
+        public InternationalBox(long height, long length, long width)
+        {
+            _height = height;
+            _length = length;
+            _width = width;
+        }
+        
+        public double CalculateInternationalBarcodeNumber()
+        {
+            return _height * _length * _width * Coefficient;
+        }
+    }
+}
+
+<1> interface for local boxes
+<2> interface for international boxes
+<3> local boxes that just calculates deci
+<4> international boxes that just calculate barcode number
+----
+
+== Console Output
+image::Interface-Segregation.png[ConsoleOutput, 500, 500]
+image::Interface-Segregation-True-Version.png[UML, 500, 500]
+
+Her class'a sadece kendi ihtiyacı olan interface'leri tanımlayarak, ihtiyaçları olmayan fonksiyonları
+implement etmemiş oluruz. Böylece interface'e yeni bir fonksiyon eklediğimizde o fonksiyona ihtiyacı
+olmayan class'lar implement etmek zorunda kalmaz.
+
+
+== Single Responsibility Principle
+Single Responsibility bir nesne veya fonksiyonun tek bir işten sorumlu olması anlamına gelir.Böylece
+hem kod anlaşılabilirliği artar, testi yazması daha kolay olur ve bir değişiklik yapılması daha kolay
+hale gelir.
+
+== Open-Closed Principle
+Open/Closed bir sınıfın değişime kapalı (closed), gelişmeye açık(open) olması anlamına gelir. Yeni 
+bir ihtiyaç geldiğinde kod üzerinde değişiklik yapılmamalı, yeni kodlar(feature'lar) eklenebilmeli.
+
+== Liskov Substitution Principle
+LSP Alt sınıftan türetilen nesnelerin üst sınıftaki sınıflarının yerine kullanılabilmesi, onlarla
+aynı işlevi görebilmesi anlamına gelir.
+
+== Interface Segregation Principle
+ISP birden fazla sorumluluğun kendilerine ait interface'lere dağılması anlamına gelir. Böylece bütün
+fonksiyonlar tek bir interface'de toplanmaz, class'lar ihtiyacı olmayan fonksiyonları implement etmez.
+
+== Dependency Inversion Principle
+DIP üst seviye sınıfların alt seviye sınıflara bağımlı olmaması gerektiğini belirtir. Üst seviye
+sınıfta bir değişiklik olursa alt sınıf bundan etkilenmeli fakat tam tersi yaşanmamalıdır. 
+Bu iki sınıf arasında soyutlama kullanarak çözüm sağlanır.

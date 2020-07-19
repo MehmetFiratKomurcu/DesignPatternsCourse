@@ -1,4 +1,4 @@
-= This is Design Patterns Course Homework
+= Design Patterns Course Homework
 :icons: font
 :imagesdir: media
 :data-uri:

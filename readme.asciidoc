@@ -1,9 +1,7 @@
-= Tasarım Kalıpları Dersi Ödev 1
+= This is Design Patterns Course Homework
 :icons: font
 :imagesdir: media
 :data-uri:
-
-==This is Design Patterns Course Homework
 
 == Lists
 
